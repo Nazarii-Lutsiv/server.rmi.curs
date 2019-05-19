@@ -8,31 +8,12 @@ import java.nio.file.Files;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-/**
- * @author RST Defines the operations provided by the server.
- */
 public interface Compute extends Remote {
 
-    /**
-     * The name of the server remote object in the server's registry.
-     */
     public static final String RMI_SERVER_NAME = "lpi.server.rmi";
 
-    /**
-     * Simplest method that does not accept any parameters and does not return
-     * any result. The easiest way to ensure everything works as expected.
-     *
-     * @throws RemoteException in case of communication issues.
-     */
     public void ping() throws RemoteException;
 
-    /**
-     * Next method to test client-server communication and parameter passing.
-     *
-     * @param text Any text you want to send to the server.
-     * @return The text you sent prepended with the "ECHO:".
-     * @throws RemoteException in case of communication issues.
-     */
     public String echo(String text) throws RemoteException;
 
     <T> T executeTask(Task<T> t) throws RemoteException, ArgumentException, ServerException;
@@ -192,10 +173,6 @@ public interface Compute extends Remote {
         }
     }
 
-    /**
-     * @author RST The class that describes a server-side error that occurred
-     * during request processing.
-     */
     public static class ServerException extends RemoteException {
         private static final long serialVersionUID = 2592458695363000913L;
 
@@ -212,29 +189,6 @@ public interface Compute extends Remote {
         }
     }
 
-    /**
-     * @author RST The class that describes the login error that occurred.
-     */
-    public static class LoginException extends RemoteException {
-        private static final long serialVersionUID = -5682573656536628713L;
-
-        public LoginException() {
-            super();
-        }
-
-        public LoginException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public LoginException(String message) {
-            super(message);
-        }
-    }
-
-    /**
-     * @author RST The class that describes an issue with the provided
-     * arguments.
-     */
     public static class ArgumentException extends RemoteException {
         private static final long serialVersionUID = 8404607085051949404L;
 
